@@ -12,7 +12,8 @@
 		"dependency injection",
 		"inversion of control",
 		"ioc",
-		"di"
+		"di",
+		"ECMAScript decorators"
 	],
 	"files": ["dist"],
 	"main": "./dist/index.js",
