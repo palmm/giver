@@ -1,0 +1,42 @@
+{
+	"name": "giver",
+	"version": "1.0.0",
+	"description": "Dependency injection with modern ECMAScript decorators",
+	"author": "Palmer McCutcheon <palmermccutcheon@gmail.com>",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/palmm/giver.git"
+	},
+	"keywords": [
+		"typescript",
+		"dependency injection",
+		"inversion of control",
+		"ioc",
+		"di"
+	],
+	"files": ["dist"],
+	"main": "./dist/index.js",
+	"module": "./dist/index.mjs",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		"require": "./dist/index.js",
+		"import": "./dist/index.mjs",
+		"types": "./dist/index.d.ts"
+	},
+	"scripts": {
+		"cqa:fix": "pnpm cqa --write",
+		"cqa": "pnpm biome check",
+		"test": "jest",
+		"tsc": "tsc --noEmit",
+		"build": "tsup"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^1.8.1",
+		"@jest/globals": "^29.7.0",
+		"jest": "^29.7.0",
+		"ts-jest": "^29.1.4",
+		"tsup": "^8.1.0",
+		"typescript": "^5.4.5"
+	},
+	"license": "MIT"
+}
