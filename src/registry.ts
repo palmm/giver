@@ -13,7 +13,7 @@ export class Registry implements RegistrySchema {
 	private tokenToClass = new Map();
 	private tokenToInstance = new Map();
 
-	registerServiceForToken(token: Token, componentClass: any) {
+	registerServiceForToken = (token: Token, componentClass: any) => {
 		if (this.tokenToClass.has(token)) {
 			throw new Error(
 				`Service already registered: ${JSON.stringify(token, null, 2)}`,
@@ -21,9 +21,9 @@ export class Registry implements RegistrySchema {
 		}
 
 		this.tokenToClass.set(token, componentClass);
-	}
+	};
 
-	getServiceForToken(token: Token) {
+	getServiceForToken = (token: Token) => {
 		const existingInstance = this.tokenToInstance.get(token);
 		if (existingInstance) {
 			return existingInstance;
@@ -39,5 +39,5 @@ export class Registry implements RegistrySchema {
 		const instance = new componentClass();
 		this.tokenToInstance.set(token, instance);
 		return instance;
-	}
+	};
 }
