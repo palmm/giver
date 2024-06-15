@@ -4,7 +4,11 @@
 
 <p align="center">Dependency injection with modern decorators.</p>
 
-<img alt="Giver image" width="180" />
+<div align="center">
+  <img alt="Giver image" height="320" src="https://github.com/palmm/giver/assets/12000567/edb69144-b994-477d-99a7-c8edd29f9ff9" />
+</div>
+
+---
 
 Giver (pronounced "_give'r_") is a library that provides dependency injection through modern ECMAScript decorators. With Giver, you can easily achieve inversion of control in your code. Giver has no dependencies, is tiny (~2 KB), and is thoroughly tested.
 
