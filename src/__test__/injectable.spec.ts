@@ -19,7 +19,7 @@ describe("injectable", () => {
 		class TestClass {}
 
 		expect(registerMock).toHaveBeenCalledWith(
-			TestClass.name.toLowerCase(),
+			TestClass.name,
 			TestClass,
 		);
 	});

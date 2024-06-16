@@ -8,13 +8,13 @@ describe("inject", () => {
 		const getClassForToken = jest.fn();
 
 		class MockClass {
-			@inject(undefined, getClassForToken)
+			@inject(MockInjectedClass, getClassForToken)
 			mockInjectedClass!: MockInjectedClass;
 		}
 
 		new MockClass();
 		expect(getClassForToken).toHaveBeenCalledWith(
-			MockInjectedClass.name.toLowerCase(),
+			MockInjectedClass.name,
 		);
 	});
 
@@ -36,7 +36,7 @@ describe("inject", () => {
 		const getClassForToken = jest.fn(() => mockInjectedClass);
 
 		class MockClass {
-			@inject(undefined, getClassForToken)
+			@inject(MockInjectedClass, getClassForToken)
 			mockInjectedClass!: MockInjectedClass;
 		}
 
