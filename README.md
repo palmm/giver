@@ -8,9 +8,19 @@
   <img alt="Giver image" height="320" src="https://github.com/palmm/giver/assets/12000567/edb69144-b994-477d-99a7-c8edd29f9ff9" />
 </div>
 
+<div align="center">
+  as in:
+  
+  "I'm really gonna giver when I head down this run"
+  <br />
+  or
+  <br />
+  "I don't have to worry about managing dependencies, I just giver and Giver injects my clients with what services they need"
+</div>
+
 ---
 
-Giver (pronounced "_give'r_") is a library that provides dependency injection through modern ECMAScript decorators. With Giver, you can easily achieve inversion of control in your code. Giver has no dependencies, is tiny (~2 KB), and is thoroughly tested.
+Giver (styled "_give'r_") is a library that provides dependency injection through modern ECMAScript decorators. With Giver, you can easily achieve inversion of control in your code. Giver has no dependencies, is tiny (~2 KB), and is thoroughly tested.
 
 > [!NOTE]  
 > Because the [decorators proposal](https://github.com/tc39/proposal-decorators) is in Stage 3, only some transpilers have released support for decorators syntax. Because of this, Giver can only be used in Typescript or any other compatible transpilation tool.
