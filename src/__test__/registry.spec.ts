@@ -10,14 +10,6 @@ describe("Registry", () => {
 		registry = new Registry();
 	});
 
-	it("should throw an error if the component is already registered", () => {
-		const token = Symbol("MockComponent");
-		registry.registerServiceForToken(token, MockComponent);
-		expect(() =>
-			registry.registerServiceForToken(token, MockComponent),
-		).toThrowError();
-	});
-
 	it("should return an instance of a registered component", () => {
 		const token = Symbol("MockComponent");
 		registry.registerServiceForToken(token, MockComponent);

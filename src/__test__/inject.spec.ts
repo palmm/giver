@@ -13,9 +13,7 @@ describe("inject", () => {
 		}
 
 		new MockClass();
-		expect(getClassForToken).toHaveBeenCalledWith(
-			MockInjectedClass.name,
-		);
+		expect(getClassForToken).toHaveBeenCalledWith(MockInjectedClass.name);
 	});
 
 	it("injects requested service by provided token", () => {
