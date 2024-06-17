@@ -18,10 +18,7 @@ describe("injectable", () => {
 		@injectable(undefined, registerMock)
 		class TestClass {}
 
-		expect(registerMock).toHaveBeenCalledWith(
-			TestClass.name,
-			TestClass,
-		);
+		expect(registerMock).toHaveBeenCalledWith(TestClass.name, TestClass);
 	});
 
 	it("should throw error when class has no name", () => {

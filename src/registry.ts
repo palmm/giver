@@ -14,12 +14,6 @@ export class Registry implements RegistrySchema {
 	private tokenToInstance = new Map();
 
 	registerServiceForToken = (token: Token, componentClass: any) => {
-		if (this.tokenToClass.has(token)) {
-			throw new Error(
-				`Service already registered: ${JSON.stringify(token, null, 2)}`,
-			);
-		}
-
 		this.tokenToClass.set(token, componentClass);
 	};
 
