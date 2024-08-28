@@ -1,1 +1,1 @@
-export type Class<T = any> = abstract new (...args: any) => T;
+export type Class<T = unknown> = new (...args: unknown[]) => T;

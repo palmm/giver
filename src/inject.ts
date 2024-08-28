@@ -1,18 +1,8 @@
-import type { Class } from "./class";
-import { RegistryFactory } from "./registry-factory";
+import { giverInstance } from "./giver-instance";
 import type { Token } from "./token";
 
 export const inject =
-	(
-		classOrToken: Token | Class,
-		getServiceForToken: (token: Token) => any = RegistryFactory.instance
-			.getServiceForToken,
-	) =>
+	(token: Token): any =>
 	(_target: unknown, _context: ClassFieldDecoratorContext) => {
-		if (typeof classOrToken === "string" || typeof classOrToken === "symbol") {
-			return () => getServiceForToken(classOrToken);
-		}
-
-		const targetToken = classOrToken.name;
-		return () => getServiceForToken(targetToken);
+		return () => giverInstance.instanceOf(token);
 	};

@@ -1,1 +1,3 @@
-export type Token = string | symbol;
+import type { Class } from "./class";
+
+export type Token = string | symbol | Class;

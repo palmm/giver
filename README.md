@@ -55,18 +55,104 @@ myApplication.start();
 > [!IMPORTANT]
 > The current scope of Giver is completely implemented and tested today. That said, Giver is simple and not a full featured DI library, yet.
 
-Giver supports constructor injection of dependencies with a registry.
+Giver supports constructor style injection of dependencies that are resolved with a registry.
 
-- Clients inject instances of services.
+- Services can be injected by using the registry.
 - Services can be registered for injection.
 
 ## Motivation
 
-The existing dependency injection libraries on NPM, at the time of writing, are great; However, they all either:
+The existing dependency injection libraries on npm are great; However, at the time of writing, they all either:
 1) Use experimental decorators.
 2) Require dependencies.
 
 So, the motivation for Giver is to be a lightweight, feature filled, tiny DI library.
+
+## Goals
+
+1) services can be injected like this
+
+```typescript
+@injectable()
+class MyDependency {
+  log = (msg: string) => console.log(msg);
+}
+
+@injectable()
+class MyOtherDependency {
+  getContent = () => "content";
+}
+
+@injectable()
+class MyService {
+  @inject(MyDependency) myDependency!: MyDependency;
+  @inject(MyOtherDependency) myOtherDependency!: MyOtherDependency;
+
+  doWork = () => {
+    this.myDependency.log(this.myOtherDependency.getContent());
+  };
+}
+
+const myService = giver.getInstanceOfClass(MyService);
+myService.doWork();
+```
+
+3) clients can get instances of services like this:
+
+```typescript
+const myService = giver.instanceOf(MyService);
+```
+
+4) bootstrapping can be done manually:
+
+```typescript
+const giver = new Giver();
+giver.register(MyService);
+giver.register(MyOtherService, Lifetime.SINGLETON);
+```
+
+5) circular dependencies are detected and reported
+
+6) services can be registered by any token:
+
+```typescript
+type Token = symbol | string | number | Class;
+giver.register(MyService, MyServiceToken);
+```
+
+7) clients can reference services that are not registered directly (e.g. they are interfaces)
+
+```typescript
+class MyService {
+  @inject(MyDependencyToken)
+  private readonly myDependency!: IMyDependency;
+  
+  ctor(){}
+}
+```
+
+### Non-goals as of now
+
+a) services define their lifetime: singleton or transient, like this:
+
+```typescript
+@injectable(Lifetime.TRANSIENT | Lifetime.SINGLETON)
+class MyService {
+  doWork() {}
+}
+
+   ...
+
+class MyService {...}
+giver.register(MyService, Lifetime.TRANSIENT);
+```
+
+b) containers can be created with a parent/child relationship, child containers default to the parents services unless overridden. today, we just have one global container.
+
+c) other registration patterns:
+- provide by class
+- provide by function (factory)
+- provide by value
 
 ## Prior art
 

@@ -1,36 +1,24 @@
-import { describe, expect, it, jest } from "@jest/globals";
+import { describe, expect, it, vi } from "vitest";
+import { giverInstance } from "../giver-instance";
 import { injectable } from "../injectable";
 
 describe("injectable", () => {
-	it("should register class to registry with provided token", () => {
-		const registerMock = jest.fn();
-		const token = Symbol("TestClass");
+	it("registers class with giverInstance", () => {
+		const registerSpy = vi.spyOn(giverInstance, "registerTokenForClass");
 
-		@injectable(token, registerMock)
+		@injectable()
 		class TestClass {}
 
-		expect(registerMock).toHaveBeenCalledWith(token, TestClass);
+		expect(registerSpy).toHaveBeenCalledWith(TestClass, TestClass);
 	});
 
-	it("should register class to registry with class name token", () => {
-		const registerMock = jest.fn();
+	it("registers class with custom token", () => {
+		const registerSpy = vi.spyOn(giverInstance, "registerTokenForClass");
+		const customToken = Symbol("customToken");
 
-		@injectable(undefined, registerMock)
+		@injectable(customToken)
 		class TestClass {}
 
-		expect(registerMock).toHaveBeenCalledWith(TestClass.name, TestClass);
-	});
-
-	it("should throw error when class has no name", () => {
-		const registerMock = jest.fn();
-		const wrapper = jest.fn(() => {
-			(
-				@injectable(undefined, registerMock)
-				class {}
-			);
-		});
-
-		expect(registerMock).not.toHaveBeenCalled();
-		expect(wrapper).toThrowError();
+		expect(registerSpy).toHaveBeenCalledWith(customToken, TestClass);
 	});
 });
