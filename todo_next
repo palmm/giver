@@ -1,0 +1,61 @@
+goals:
+1) services can get ctor injection like this:
+
+class MyService {
+  constructor(someDependency: SomeDependency) {}
+}
+
+2) services define their lifetime: singleton, or transient, like this:
+
+@injectable(Lifetime.TRANSIENT | Lifetime.SINGLETON)
+class MyService {
+  doWork() {}
+}
+
+this is short for:
+
+class MyService {...}
+giver.register(MyService, Lifetime.TRANSIENT);
+
+it runs the decorator at runtime but at first reference
+
+3) clients can get instances of services like this:
+
+const myService = registry.getInstance(MyService);
+
+4) bootstrapping can be done manually:
+
+const giver = new Giver();
+giver.register(MyService); // defaults to transient
+giver.register(MyOtherService, Lifetime.SINGLETON);
+
+a) circular dependencies are detected and reported
+
+b) services can be registered by token:
+type Token = symbol | string | number | Class;
+giver.register(MyService, MyServiceToken);
+      
+__non goals:__
+
+5) clients can reference services that are not registered (e.g. they are interfaces)
+
+class MyService {
+  constructor(@inject(IMyDependency) private readonly myDependency: IMyDependency) {}
+}
+
+FYI, impossible with current decorator syntax. We'll have to do something like
+this but probably mark it out of scope until we get decorator in params for
+ctor. Then we can decorate the metadata and inject.
+
+class MyService {
+  @inject(MyDependencyToken) private readonly myDependency!: IMyDependency;
+  
+  ctor(){}
+}
+
+6) containers can be created with a parent/child relationship, child containers default to the parents services unless overridden. Today, just gonna have one global container.
+
+7) other registration patterns:
+provide by class
+provide by function (factory)
+provide by value
